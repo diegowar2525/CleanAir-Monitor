@@ -1,0 +1,18 @@
+*, ::before, ::after { 
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color-blanco: white;
+    --color-negro: black;
+    --centrado: center;
+    --flexible: flex;
+}
+
+html {
+    interpolate-size: allow-keywords;
+    transition-behavior: allow-discrete;
+}
+

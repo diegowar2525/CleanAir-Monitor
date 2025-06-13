@@ -27,6 +27,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# ! Modelo de Usuario (sobreescribe el modelo User)
+AUTH_USER_MODEL = 'custom_auth.CustomUser'
 
 # Application definition
 
@@ -37,9 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core',  # Your core app
-    'user',
-    'monitor',
+    'apps.core.apps.CoreConfig',
+    'apps.custom_auth.apps.CustomAuthConfig',
+    'apps.airquality.apps.AirqualityConfig'
 ]
 
 MIDDLEWARE = [
@@ -57,7 +59,7 @@ ROOT_URLCONF = 'CleanAir.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,12 +120,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-MEDIA_ROOT = BASE_DIR / 'media'
-
-MEDIA_URL = '/media/'
+"""
+    Si el usuario está activo y hace una request, el contador se reinicia y la sesión se extiende y no se desloguea
+"""
+SESSION_SAVE_EVERY_REQUEST = True
+SESSION_COOKIE_AGE = 86400
